@@ -1,26 +1,21 @@
-from .irrf import IRRF
-from .inss import INSS
-from .dsr import DSR
-from .horasextras import HorasExtras 
-from .adicionalnoturno import AdicionalNoturno
-from .pensao import Pensao
-from .insalubridade import Insalubridade
-from .periculosidade import Periculosidade
+from common.irrf import IRRF
+from common.inss import INSS
+from common.dsr import DSR
+from common.horasextras import HorasExtras 
+from common.adicionalnoturno import AdicionalNoturno
+from common.pensao import Pensao
+from common.insalubridade import Insalubridade
+from common.periculosidade import Periculosidade
 from common.holerite import Holerite
 
 class FechamentoMensal:
 
-    VALOR_DESC_DEPENDENTE = 189.59
-
     @staticmethod
     def run():
-        VALOR_DESC_DEPENDENTE = FechamentoMensal.VALOR_DESC_DEPENDENTE
 
         repetir = True
         while(repetir):
-            """
-            ENTRADAS 
-            """
+            # Entradas
             """
             salario = float(input("Salário Bruto: ").replace(",", ".")) 
             numDependentes = int(input("Número de Dependentes: "))
@@ -38,69 +33,79 @@ class FechamentoMensal:
             listaFeriados = input("Feriados (dd/MM/yyyy;dd/MM/yyyy): ").split(";")
             """
             
-            salario = 4111.50
+            salario = 2500
             numDependentes = 0
             cargaSemanal = 44
             horasExtras50 = 0
-            horasExtras75 = 11.87
+            horasExtras75 = 0
             horasExtras100 = 0
             horasAdcNoturno = 0
-            insalubridade = 104.50
+            insalubridade = 0
             periculosidade = 0
             pensaoAlimenticia = 0
             numDiasUteis = 24
             numDiasNaoUteis = 6
-            listaFaltas = "13/04/2020".split(";")
+            listaFaltas = "".split(";")
             listaFeriados = "".split(";")
             
-
-            """
-            MAIN 
-            """
+            # Main
             holerite = Holerite()
+
+            # SALÁRIO
             holerite.insereItem("salarioMensal", { "codigo": 1, "descricao": "Salario Mensal", "referencia": 30, "proventos": salario, "descontos": 0 })
 
+            # INSALUBRIDADE
             insaRef = Insalubridade.calcularRef(insalubridade)
             holerite.insereItem("insalubridade", { "codigo": 6, "descricao": "Adicional Insalubridade", "referencia": insaRef, "proventos": insalubridade, "descontos": 0 })
             
+            # PERICULOSIDADE
             periRef = Periculosidade.calcularRef(periculosidade)
             holerite.insereItem("periculosidade", { "codigo": 7, "descricao": "Adicional Periculosidade", "referencia": periRef, "proventos": periculosidade, "descontos": 0 })
 
+            # HORAS EXTRAS 50%
             baseCalculoHE = salario + insalubridade + periculosidade
-            valorHE50 = HorasExtras.calculaHE50(baseCalculoHE, cargaSemanal, horasExtras50)
+            valorHE50 = HorasExtras.calcularHE50(baseCalculoHE, cargaSemanal, horasExtras50)
             holerite.insereItem("horasExtras50", { "codigo": 2, "descricao": "Horas Extras 50%", "referencia": horasExtras50, "proventos": valorHE50, "descontos": 0 })
 
-            valorHE75 = HorasExtras.calculaHE75(baseCalculoHE, cargaSemanal, horasExtras75)
+            # HORAS EXTRAS 75%
+            valorHE75 = HorasExtras.calcularHE75(baseCalculoHE, cargaSemanal, horasExtras75)
             holerite.insereItem("horasExtras75", { "codigo": 3, "descricao": "Horas Extras 75%", "referencia": horasExtras75, "proventos": valorHE75, "descontos": 0 })
 
-            valorHE100 = HorasExtras.calculaHE100(baseCalculoHE, cargaSemanal, horasExtras100)
+            # HORAS EXTRAS 100%
+            valorHE100 = HorasExtras.calcularHE100(baseCalculoHE, cargaSemanal, horasExtras100)
             holerite.insereItem("horasExtras100", { "codigo": 4, "descricao": "Horas Extras 100%", "referencia": horasExtras100, "proventos": valorHE100, "descontos": 0 })
 
+            # ADICIONAL NOTURNO
             valorHAN = AdicionalNoturno.calcular(baseCalculoHE, cargaSemanal, horasAdcNoturno)
             holerite.insereItem("horasAdcNoturno", { "codigo": 5, "descricao": "Horas Adicional Noturno", "referencia": horasAdcNoturno, "proventos": valorHAN, "descontos": 0 })
 
+            # DSR PROVENTOS
             valorHE = valorHE50 + valorHE75 + valorHE100
             quantHE = horasExtras50 + horasExtras75 + horasExtras100
             dsrProv = DSR.calcularProventos(valorHE, numDiasUteis, numDiasNaoUteis)
             dsrProvRef = quantHE
             holerite.insereItem("dsrProv", { "codigo": 8, "descricao": "DSR Horas Extras", "referencia": dsrProvRef, "proventos": dsrProv, "descontos": 0 })
 
+            # DSR DESCONTOS
             baseCalculoDSR = salario + valorHE + valorHAN + insalubridade + periculosidade + dsrProv
             dsrDesc = DSR.calcularDescontos(salario, listaFaltas, listaFeriados)
             dsrDescRef = DSR.calcularDescontosRef(listaFaltas, listaFeriados)
             holerite.insereItem("dsrDesc", { "codigo": 9, "descricao": "DSR Faltas", "referencia": dsrDescRef, "proventos": 0, "descontos": dsrDesc })
 
+            # PENSÂO ALIMENTÍCIA
             pensaoRef = Pensao.calcularRef(pensaoAlimenticia)
             holerite.insereItem("pensao", { "codigo": 10, "descricao": "Pensão Alimentícia", "referencia": pensaoRef, "proventos": 0, "descontos": pensaoAlimenticia })
-            
+
+            # INSS
             baseCalculoINSS = salario + valorHE + valorHAN + insalubridade + periculosidade + dsrProv - dsrDesc
             inss = INSS.calcular(baseCalculoINSS)
             inssRef = INSS.calcularRef(baseCalculoINSS)
             holerite.insereItem("inss", { "codigo": 11, "descricao": "INSS", "referencia": inssRef, "proventos": 0, "descontos": inss })
 
-            baseCalculoIRRF = salario - inss - (numDependentes * VALOR_DESC_DEPENDENTE)
+            # IRRF
+            baseCalculoIRRF = salario - inss
             irrf = IRRF.calcular(baseCalculoIRRF, numDependentes)
-            irrfRef = IRRF.calcularRef(baseCalculoIRRF)
+            irrfRef = IRRF.calcularRef(baseCalculoIRRF, numDependentes)
             holerite.insereItem("irrf", { "codigo": 12, "descricao": "IRRF", "referencia": irrfRef, "proventos": 0, "descontos": irrf })
 
             holerite.imprime()

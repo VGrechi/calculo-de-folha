@@ -1,11 +1,14 @@
 class IRRF:
 
     FAIXAS = [1903.98, 2826.65, 3751.05, 4664.68]
+    VALOR_DESC_DEPENDENTE = 189.59
 
     @staticmethod
     def calcular(baseCalculo, numDependentes):
         FAIXAS = IRRF.FAIXAS
         imposto = 0
+
+        baseCalculo -= (numDependentes * IRRF.VALOR_DESC_DEPENDENTE)
 
         if (baseCalculo > FAIXAS[0]):
             faixa = baseCalculo - FAIXAS[0]
@@ -32,8 +35,11 @@ class IRRF:
         return round(imposto, 2)
 
     @staticmethod
-    def calcularRef(baseCalculo):
+    def calcularRef(baseCalculo, numDependentes):
         FAIXAS = IRRF.FAIXAS
+
+        baseCalculo -= (numDependentes * IRRF.VALOR_DESC_DEPENDENTE)
+
         if baseCalculo <= FAIXAS[0]:
             return 0
         

@@ -15,9 +15,7 @@ except:
 if(opcao == 1):
     FechamentoMensal.run()
 elif(opcao == 2):
-    print("Funcionalidade em construção.")
-    #DecimoTerceiro.run()
-    exit()
+    DecimoTerceiro.run()
 elif(opcao == 3):
     print("Funcionalidade em construção.")
     exit()
