@@ -20,7 +20,7 @@ class Holerite:
             registro = self.holerite.get(key)
             if registro.get("referencia") == 0: 
                 continue
-            print("| {:<10} | {:<30} | {:<10} | {:<10} | {:<10} |".format(registro.get("codigo"), registro.get("descricao"), registro.get("referencia"), registro.get("proventos"), registro.get("descontos")))
+            print("| {:<10} | {:<30} | {:<10} | {:<10} | {:<10} |".format(registro.get("codigo"), registro.get("descricao"), registro.get("referencia"), round(registro.get("proventos"), 2), round(registro.get("descontos"), 2)))
         print("--------------------------------------------------------------------------------------")
         print("| {:<28} {:>10} | {:<29} {:>10} |".format("TOTAL PROVENTOS", round(self.totalProventos, 2), "TOTAL DESCONTOS", round(self.totalDescontos, 2)))
         print("| {:39} | {:<29} {:>10} |".format("", "LÌQUIDO A RECEBER", round(self.totalProventos - self.totalDescontos, 2)))

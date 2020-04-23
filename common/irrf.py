@@ -32,7 +32,7 @@ class IRRF:
             faixa = baseCalculo - FAIXAS[3]
             imposto += faixa * 0.275
 
-        return round(imposto, 2)
+        return imposto
 
     @staticmethod
     def calcularRef(baseCalculo, numDependentes):

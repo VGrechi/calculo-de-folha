@@ -21,7 +21,7 @@ class INSS:
         if imposto > teto: 
             imposto = teto
 
-        return round(imposto, 2)
+        return imposto
 
     @staticmethod
     def calcularRef(baseCalculo):

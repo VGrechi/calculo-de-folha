@@ -1,0 +1,79 @@
+[
+    {
+        "codigo": 1,
+        "descricao": "Salário Mensal" 
+    },
+    {
+        "codigo": 2,
+        "descricao": "1ª Parcela 13º" 
+    },
+    {
+        "codigo": 3,
+        "descricao": "2ª Parcela 13º" 
+    },
+    {
+        "codigo": 4,
+        "descricao": "1ª Parcela 13º (Adiantamento)" 
+    },
+    {
+        "codigo": 5,
+        "descricao": "Férias" 
+    },
+    {
+        "codigo": 6,
+        "descricao": "1/3 Férias" 
+    },
+    {
+        "codigo": 7,
+        "descricao": "Abono Pecuniário" 
+    },
+    {
+        "codigo": 8,
+        "descricao": "1/3 Abono Pecuniário" 
+    },
+    {
+        "codigo": 9,
+        "descricao": "Adicional Insalubridade" 
+    },
+    {
+        "codigo": 10,
+        "descricao": "Adicional Periculosidade" 
+    },
+    {
+        "codigo": 11,
+        "descricao": "Horas Extras 50%" 
+    },
+    {
+        "codigo": 12,
+        "descricao": "Horas Extras 75%" 
+    },
+    {
+        "codigo": 13,
+        "descricao": "Horas Extras 100%" 
+    },
+    {
+        "codigo": 14,
+        "descricao": "Horas Adicional Noturno" 
+    },
+    {
+        "codigo": 15,
+        "descricao": "DSR Horas Extras" 
+    },
+    {
+        "codigo": 101,
+        "descricao": "INSS" 
+    },
+    {
+        "codigo": 102,
+        "descricao": "IRRF" 
+    },
+    {
+        "codigo": 103,
+        "descricao": "DSR Faltas" 
+    },
+    {
+        "codigo": 104,
+        "descricao": "Pensão Alimentícia" 
+    }
+
+]

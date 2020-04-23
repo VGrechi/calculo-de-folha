@@ -1,10 +1,12 @@
 from folhapagamento.fechamentomensal import FechamentoMensal
 from decimoterceiro.decimoterceiro import DecimoTerceiro
+from ferias.ferias import Ferias
 
 print("Escolha a funcionalidade abaixo")
-print("\t 1) Folha de Pagamento")
-print("\t 2) 13º Salário")
-print("\t 3) Férias")
+print("\t (1) Folha de Pagamento")
+print("\t (2) 13º Salário")
+print("\t (3) Férias")
+print("\t (0) SAIR")
 
 try:
     opcao = int(input("Opção: "))
@@ -17,7 +19,8 @@ if(opcao == 1):
 elif(opcao == 2):
     DecimoTerceiro.run()
 elif(opcao == 3):
-    print("Funcionalidade em construção.")
+    Ferias.run()
+elif(opcao == 0):
     exit()
 else:
     print("Valor incorreto.")

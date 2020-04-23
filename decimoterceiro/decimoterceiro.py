@@ -23,6 +23,7 @@ class DecimoTerceiro:
             numMeses = int(input("Número de meses trabalhados: "))
             adiantamento = float(input("Valor da 1ª Parcela (se já foi paga): ").replace(",", "."))
 
+            # Main
             holerite = Holerite()
             proporcao = numMeses / 12
 
@@ -36,25 +37,25 @@ class DecimoTerceiro:
                 # PRIMEIRA PARCELA - ADIANTAMENTO
                 salarioProporcional = salario * proporcao
                 decimoTerceiro = salarioProporcional / 2
-                holerite.insereItem("decimoTerceiro", { "codigo": 1, "descricao": "1ª Parcela 13º", "referencia": numMeses, "proventos": decimoTerceiro, "descontos": 0 })
+                holerite.insereItem("decimoTerceiro", { "codigo": 2, "descricao": "1ª Parcela 13º", "referencia": numMeses, "proventos": decimoTerceiro, "descontos": 0 })
             else:
                 salarioProporcional = salario * proporcao
                
                 # SEGUNDA PARCELA
                 decimoTerceiro = salarioProporcional - adiantamento
-                holerite.insereItem("decimoTerceiro", { "codigo": 1, "descricao": "2ª Parcela 13º", "referencia": numMeses, "proventos": decimoTerceiro, "descontos": 0 })
+                holerite.insereItem("decimoTerceiro", { "codigo": 3, "descricao": "2ª Parcela 13º", "referencia": numMeses, "proventos": decimoTerceiro, "descontos": 0 })
 
                 # INSS
                 baseCalculoINSS = salarioProporcional
                 inss = INSS.calcular(baseCalculoINSS)
                 inssRef = INSS.calcularRef(baseCalculoINSS)
-                holerite.insereItem("inss", { "codigo": 11, "descricao": "INSS", "referencia": inssRef, "proventos": 0, "descontos": inss })
+                holerite.insereItem("inss", { "codigo": 101, "descricao": "INSS", "referencia": inssRef, "proventos": 0, "descontos": inss })
 
                 # IRRF
                 baseCalculoIRRF = salarioProporcional - inss
                 irrf = IRRF.calcular(baseCalculoIRRF, numDependentes)
                 irrfRef = IRRF.calcularRef(baseCalculoIRRF, numDependentes)
-                holerite.insereItem("irrf", { "codigo": 12, "descricao": "IRRF", "referencia": irrfRef, "proventos": 0, "descontos": irrf })
+                holerite.insereItem("irrf", { "codigo": 102, "descricao": "IRRF", "referencia": irrfRef, "proventos": 0, "descontos": irrf })
 
             holerite.imprime()
 

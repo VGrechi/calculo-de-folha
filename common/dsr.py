@@ -5,14 +5,14 @@ class DSR:
     @staticmethod
     def calcularProventos(valorHE, numDiasUteis, numDiasNaoUteis):
         proventos = valorHE * numDiasNaoUteis / numDiasUteis
-        return round(proventos, 2)
+        return proventos
 
     @staticmethod
     def calcularDescontos(baseCalculo, listaFaltas, listaFeriados):
         numSemanas = DSR.calcularDescontosRef(listaFaltas, listaFeriados)
 
         valorDia = baseCalculo / 30
-        return round(valorDia * numSemanas, 2)
+        return valorDia * numSemanas
 
     @staticmethod
     def calcularDescontosRef(listaFaltas, listaFeriados):
