@@ -14,9 +14,9 @@ Cálculo de folha de pagamento baseado na legislação brasileira de 2020. Aplic
     - Periculosidade
     - Pensão Alimentícia
 
-- [ ] Cálculo de 13º Salário
+- [x] Cálculo de 13º Salário
 
-- [ ] Cálculo de Férias
+- [x] Cálculo de Férias
 
 - [ ] Registro de Ponto
 
